@@ -1,4 +1,5 @@
 require 'config.global'
+require 'config.keymaps'
 require 'config.lazy'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
