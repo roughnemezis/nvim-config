@@ -208,6 +208,7 @@ return {
     },
     dependencies = { { 'echasnovski/mini.icons', opts = {} } },
   },
+  'rebelot/kanagawa.nvim',
   {
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
