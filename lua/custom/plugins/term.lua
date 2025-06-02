@@ -22,7 +22,7 @@ end
 
 M.toggle_repl = function()
   if current_repl ~= nil then
-    local state = M.get_buffer_state(current_repl.bufnr)
+    local state = M.get_repl_state()
     -- print(vim.inspect(state))
     if state.status == 'displayed' then
       vim.api.nvim_win_close(state.win, false)
@@ -49,6 +49,21 @@ M.send_visual = function()
   vim.cmd.normal { '"zy', bang = true }
   local selection = vim.fn.getreg 'z'
   vim.fn.chansend(current_repl.channel_id, selection .. '\n')
+end
+
+M.send_motion = function(motion)
+  local start_pos = vim.api.nvim_buf_get_mark(0, '[')
+  local end_pos = vim.api.nvim_buf_get_mark(0, ']')
+  print(vim.inspect(start_pos), vim.inspect(end_pos))
+  local lines = vim.api.nvim_buf_get_lines(0, start_pos[1] - 1, end_pos[1], false)
+  if #lines == 0 then
+    return
+  end
+  -- Adjust the first and last line to include the correct columns
+  lines[1] = string.sub(lines[1], start_pos[2])
+  lines[#lines] = string.sub(lines[#lines], 1, end_pos[2] + 1)
+  local content = table.concat(lines, '\n')
+  vim.fn.chansend(current_repl.channel_id, content .. '\n')
 end
 
 return M

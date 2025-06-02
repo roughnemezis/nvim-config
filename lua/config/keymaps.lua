@@ -37,3 +37,21 @@ vim.keymap.set('t', '<C-k>', '<C-\\><C-n><C-w><C-k>', { desc = 'Move focus to th
 -- ##############      OIL             ##########################
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 vim.keymap.set('n', '+', '<CMD>Oil --float<CR>', { desc = 'Open parent directory - in floating window' })
+
+-- ##############      Simple REPL             ##########################
+vim.api.nvim_create_user_command('Repl', function(opts)
+  require('custom.plugins.term').toggle_repl()
+end, { range = false })
+
+vim.keymap.set('n', '<leader>vx', '<CMD>vsplit +Repl<CR>', { desc = 'Open REPL in vertical split' })
+vim.keymap.set('n', '<leader>sx', '<CMD>split +Repl<CR>', { desc = 'Open REPL in horizontal split' })
+vim.keymap.set('n', '<leader>rx', '<CMD>Repl<CR>', { desc = 'Open REPL in current window' })
+
+vim.keymap.set('v', '<C-x>', function()
+  require('custom.plugins.term').send_visual()
+end, { desc = 'Send visual selection to REPL' })
+
+vim.keymap.set({ 'n' }, '<C-x>', function()
+  vim.go.operatorfunc = "v:lua.require'custom.plugins.term'.send_motion"
+  return 'g@'
+end, { expr = true, desc = 'Send lines to REPL using a motion' })
