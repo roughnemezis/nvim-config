@@ -5,6 +5,9 @@ vim.api.nvim_create_user_command('ReloadTerm', function(opts)
   package.loaded['custom.plugins.term'] = nil
   vim.keymap.set({ 'v' }, '<C-x>', require('custom.plugins.term').send_visual, { noremap = true })
   vim.keymap.set({ 'n' }, '<C-i>', require('custom.plugins.term').repl_info, { noremap = true })
+  vim.api.nvim_create_user_command('Repl', function(opts)
+    require('custom.plugins.term').toggle_repl()
+  end, { range = false })
 end, { range = false })
 
 vim.keymap.set({ 'n' }, '<leader>r', '<CMD>ReloadTerm<CR>', { noremap = true, silent = true })
