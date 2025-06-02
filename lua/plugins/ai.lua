@@ -8,7 +8,7 @@ return {
     build = 'make tiktoken', -- Only on MacOS or Linux
     opts = {
       window = {
-        layout = 'horizontal', -- 'vertical', 'horizontal', 'float', 'replace'
+        layout = 'replace', -- 'vertical', 'horizontal', 'float', 'replace'
       },
       mappings = {
         -- Use tab for completion
