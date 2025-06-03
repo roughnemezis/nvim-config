@@ -47,11 +47,15 @@ vim.keymap.set('n', '<leader>vx', '<CMD>vsplit +Repl<CR>', { desc = 'Open REPL i
 vim.keymap.set('n', '<leader>sx', '<CMD>split +Repl<CR>', { desc = 'Open REPL in horizontal split' })
 vim.keymap.set('n', '<leader>rx', '<CMD>Repl<CR>', { desc = 'Open REPL in current window' })
 
-vim.keymap.set('v', '<C-x>', function()
+vim.keymap.set('v', 'm', function()
   require('custom.plugins.term').send_visual()
 end, { desc = 'Send visual selection to REPL' })
 
-vim.keymap.set({ 'n' }, '<C-x>', function()
+vim.keymap.set({ 'n', 'i' }, '<C-m>', function()
+  require('custom.plugins.term').send_line()
+end, { desc = 'Send current line to REPL' })
+
+vim.keymap.set({ 'n' }, 'm', function()
   vim.go.operatorfunc = "v:lua.require'custom.plugins.term'.send_motion"
   return 'g@'
 end, { expr = true, desc = 'Send lines to REPL using a motion' })
