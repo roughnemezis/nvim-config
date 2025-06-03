@@ -51,7 +51,7 @@ vim.keymap.set('v', 'm', function()
   require('custom.plugins.term').send_visual()
 end, { desc = 'Send visual selection to REPL' })
 
-vim.keymap.set({ 'n', 'i' }, '<C-m>', function()
+vim.keymap.set({ 'n', 'i' }, '<A-m>', function()
   require('custom.plugins.term').send_line()
 end, { desc = 'Send current line to REPL' })
 
