@@ -45,10 +45,25 @@ M.repl_info = function()
   print(vim.inspect(current_repl))
 end
 
+M.send = function(text)
+  vim.fn.chansend(current_repl.channel_id, text .. '\n')
+  local term_win = vim.fn.bufwinid(current_repl.bufnr)
+  local n = vim.api.nvim_buf_line_count(current_repl.bufnr)
+  vim.api.nvim_win_set_cursor(term_win, { n, 0 })
+end
+
+M.send_line = function()
+  local pos = vim.fn.getpos '.'
+  local lines = vim.api.nvim_buf_get_lines(0, pos[2] - 1, pos[2], false)
+  print(vim.inspect(lines))
+  local content = table.concat(lines, '\n')
+  M.send(content)
+end
+
 M.send_visual = function()
   vim.cmd.normal { '"zy', bang = true }
   local selection = vim.fn.getreg 'z'
-  vim.fn.chansend(current_repl.channel_id, selection .. '\n')
+  M.send(selection)
 end
 
 M.send_motion = function(motion)
@@ -63,7 +78,7 @@ M.send_motion = function(motion)
   lines[1] = string.sub(lines[1], start_pos[2])
   lines[#lines] = string.sub(lines[#lines], 1, end_pos[2] + 1)
   local content = table.concat(lines, '\n')
-  vim.fn.chansend(current_repl.channel_id, content .. '\n')
+  M.send(content)
 end
 
 return M
