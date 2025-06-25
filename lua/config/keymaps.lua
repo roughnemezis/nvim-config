@@ -11,13 +11,8 @@ vim.keymap.set({ 'n' }, '<leader>ev', '<Cmd>tabedit $MYVIMRC<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<A-l>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('t', '<C-x>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set({ 'i', 'v' }, '<C-x>', '<Esc>', { desc = 'Exit insert/visual mode' })
 
 -- Folds
 vim.keymap.set('n', 'za', 'zA', { desc = 'open fold under cursor recursively' })
@@ -44,18 +39,18 @@ vim.api.nvim_create_user_command('Repl', function(opts)
 end, { range = false })
 
 vim.keymap.set('n', '<leader>vx', '<CMD>vsplit +Repl<CR>', { desc = 'Open REPL in vertical split' })
-vim.keymap.set('n', '<leader>sx', '<CMD>split +Repl<CR>', { desc = 'Open REPL in horizontal split' })
+vim.keymap.set('n', '<leader>xx', '<CMD>split +Repl<CR>', { desc = 'Open REPL in horizontal split' })
 vim.keymap.set('n', '<leader>rx', '<CMD>Repl<CR>', { desc = 'Open REPL in current window' })
 
-vim.keymap.set('v', 'm', function()
+vim.keymap.set('v', 's', function()
   require('custom.plugins.term').send_visual()
 end, { desc = 'Send visual selection to REPL' })
 
-vim.keymap.set({ 'n', 'i' }, '<A-m>', function()
+vim.keymap.set({ 'n', 'i' }, '<A-s>', function()
   require('custom.plugins.term').send_line()
 end, { desc = 'Send current line to REPL' })
 
-vim.keymap.set({ 'n' }, 'm', function()
+vim.keymap.set({ 'n' }, 's', function()
   vim.go.operatorfunc = "v:lua.require'custom.plugins.term'.send_motion"
   return 'g@'
 end, { expr = true, desc = 'Send lines to REPL using a motion' })
