@@ -1,0 +1,16 @@
+vim.bo.expandtab = true
+vim.bo.tabstop = 4
+vim.bo.shiftwidth = 4
+vim.opt_local.foldmethod = 'expr'
+vim.opt_local.foldexpr = "v:lua.require'custom.plugins.folding'.markdown_foldexpr()"
+vim.opt_local.foldlevel = 99
+vim.cmd 'highlight! link Folded DiffText'
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = '*',
+  callback = function()
+    if vim.bo.filetype == 'quarto' then
+      require('custom.plugins.folding').compute_fold_levels()
+    end
+  end,
+})
