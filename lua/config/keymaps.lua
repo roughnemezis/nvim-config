@@ -14,10 +14,6 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<C-x>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 vim.keymap.set({ 'i', 'v' }, '<C-x>', '<Esc>', { desc = 'Exit insert/visual mode' })
 
--- Folds
-vim.keymap.set('n', 'za', 'zA', { desc = 'open fold under cursor recursively' })
-vim.keymap.set('n', 'zc', 'zC', { desc = 'close fold under cursor recursively' })
-
 --  See `:help wincmd` for a list of all window commands
 vim.keymap.set({ 'n' }, '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set({ 'n' }, '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
