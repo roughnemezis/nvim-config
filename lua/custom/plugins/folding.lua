@@ -64,4 +64,8 @@ M.inspect_fold_levels = function()
   end
 end
 
+M.get_indent = function()
+  return 22
+end
+
 return M
