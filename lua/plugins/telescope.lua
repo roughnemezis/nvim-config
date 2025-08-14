@@ -74,12 +74,12 @@ return {
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
+      local obsidian_path = require('config.tokens').obsidian_vault_path
+      local quarto_path = require('config.tokens').quarto_vault_path
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
@@ -103,10 +103,34 @@ return {
         }
       end, { desc = '[S]earch [/] in Open Files' })
 
+      -- searching files
+      vim.keymap.set('n', '<leader>sff', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>sfo', function()
+        builtin.find_files { cwd = obsidian_path }
+      end, { desc = '[S]earch [F]iles in [O]bsidian' })
+      vim.keymap.set('n', '<leader>sfq', function()
+        builtin.find_files { cwd = quarto_path }
+      end, { desc = '[S]earch [F]iles in [Q]uarto' })
+      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+      vim.keymap.set('n', '<leader>sfp', function()
+        builtin.find_files { cwd = vim.fs.joinpath(vim.fn.stdpath 'data', 'lazy') }
+      end, { desc = '[S]earch [F]iles in [P]lugins files' })
+
+      local custom = require 'custom.plugins.multigrep'
+      vim.keymap.set('n', '<leader>smm', custom.live_multigrep, { desc = '[S]earch [M]ultiple words' })
+      vim.keymap.set('n', '<leader>smo', function()
+        custom.live_multigrep { cwd = obsidian_path }
+      end, { desc = '[S]earch [M]ultiple words in [O]bsidian' })
+      vim.keymap.set('n', '<leader>smq', function()
+        custom.live_multigrep { cwd = quarto_path }
+      end, { desc = '[S]earch [M]ultiple words in [Q]uarto' })
+      vim.keymap.set('n', '<leader>smp', function()
+        custom.live_multigrep { cwd = vim.fs.joinpath(vim.fn.stdpath 'data', 'lazy') }
+      end, { desc = '[S]earch [M]ultiple words in [P]lugins files' })
     end,
   },
 }
