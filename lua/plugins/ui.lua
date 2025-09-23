@@ -13,4 +13,9 @@ return {
       vim.cmd.colorscheme 'tokyonight-night'
     end,
   },
+  {
+    'shortcuts/no-neck-pain.nvim',
+    version = '*',
+    opts = { width = 150 },
+  },
 }

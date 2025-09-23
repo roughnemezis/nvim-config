@@ -131,6 +131,9 @@ return {
       vim.keymap.set('n', '<leader>smp', function()
         custom.live_multigrep { cwd = vim.fs.joinpath(vim.fn.stdpath 'data', 'lazy') }
       end, { desc = '[S]earch [M]ultiple words in [P]lugins files' })
+      vim.keymap.set('n', '<leader>smP', function()
+        custom.live_multigrep { cwd = '/home/merzisenh/Projets/' }
+      end, { desc = '[S]earch [M]ultiple words in [P]rojets' })
     end,
   },
 }
