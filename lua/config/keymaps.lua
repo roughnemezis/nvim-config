@@ -25,6 +25,12 @@ vim.keymap.set('t', '<C-l>', '<C-\\><C-n><C-w><C-l>', { desc = 'Move focus to th
 vim.keymap.set('t', '<C-j>', '<C-\\><C-n><C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('t', '<C-k>', '<C-\\><C-n><C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- ##############      QUICKFIX             ##########################
+--
+--
+vim.keymap.set('n', '<M-j>', '<CMD>cnext<CR>', { desc = 'Next item in quickfix' })
+vim.keymap.set('n', '<M-k>', '<CMD>cprevious<CR>', { desc = 'Previous item in quickfix' })
+
 -- ##############      OIL             ##########################
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 vim.keymap.set('n', '+', '<CMD>Oil --float<CR>', { desc = 'Open parent directory - in floating window' })
