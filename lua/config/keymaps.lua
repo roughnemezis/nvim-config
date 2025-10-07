@@ -56,3 +56,10 @@ vim.keymap.set({ 'n' }, 's', function()
   vim.go.operatorfunc = "v:lua.require'custom.plugins.term'.send_motion"
   return 'g@'
 end, { expr = true, desc = 'Send lines to REPL using a motion' })
+
+local function insertFullPath()
+  local filepath = vim.fn.expand '%'
+  vim.fn.setreg('+', filepath) -- write to clippoard
+end
+
+vim.keymap.set('n', '<leader>yp', insertFullPath, { noremap = true, silent = true })
