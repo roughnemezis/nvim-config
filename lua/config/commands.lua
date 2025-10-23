@@ -24,3 +24,13 @@ vim.api.nvim_create_user_command('LazyGit', function()
     vim.cmd 'startinsert'
   end
 end, {})
+
+vim.api.nvim_create_user_command('GetCodeblocks', function(opts)
+  -- package.loaded['custom.plugins.term'] = nil
+  local term = require 'custom.plugins.term'
+  local start = tonumber(opts.fargs[1])
+  local stop = tonumber(opts.fargs[2])
+  local num_blocks = tonumber(opts.fargs[3])
+  -- term.get_codeblocks(start, stop, num_blocks)
+  term.send_codeblocks_before_cursor()
+end, { nargs = '*' })
