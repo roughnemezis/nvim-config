@@ -63,3 +63,8 @@ local function insertFullPath()
 end
 
 vim.keymap.set('n', '<leader>yp', insertFullPath, { noremap = true, silent = true })
+
+-- ##############      LazyGit             ##########################
+--
+
+vim.keymap.set('n', '<leader>lg', '<CMD>LazyGit<CR>', { desc = 'Open Lazygit' })

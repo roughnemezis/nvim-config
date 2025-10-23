@@ -1,4 +1,5 @@
 require 'config.global'
+require 'config.commands'
 require 'config.keymaps'
 require 'config.lazy'
 
