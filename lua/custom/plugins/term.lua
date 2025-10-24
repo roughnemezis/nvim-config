@@ -47,7 +47,7 @@ end
 
 M.send = function(text)
   text = text:gsub('[\r\n]+', '\n'):gsub('\n%s*\n', '\n'):gsub('^\n+', ''):gsub('\n+$', '')
-  vim.fn.chansend(current_repl.channel_id, text .. '\n')
+  vim.fn.chansend(current_repl.channel_id, text .. '\n\n')
   local term_win = vim.fn.bufwinid(current_repl.bufnr)
   local n = vim.api.nvim_buf_line_count(current_repl.bufnr)
   vim.api.nvim_win_set_cursor(term_win, { n, 0 })
@@ -113,7 +113,6 @@ M.get_codeblocks = function(start, stop, max_blocks)
     local language = extract_text(node_language:range())
     table.insert(codeblocks, { language = language, executable_content = text })
   end
-  print(vim.inspect(codeblocks))
   return codeblocks
 end
 
