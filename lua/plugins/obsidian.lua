@@ -15,7 +15,7 @@ return {
     config = function()
       require('obsidian').setup {
         ui = {
-          enabled = false,
+          enable = false,
         },
         legacy_commands = false,
         frontmatter = {
