@@ -10,9 +10,15 @@ vim.keymap.set({ 'n' }, '<leader>ev', '<Cmd>tabedit $MYVIMRC<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-
 vim.keymap.set('t', '<C-x>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 vim.keymap.set({ 'i', 'v' }, '<C-x>', '<Esc>', { desc = 'Exit insert/visual mode' })
+
+-- nvigation between buffers
+--
+vim.keymap.set({ 'n' }, '<C-n>', '<CMD>bnext<CR>', { desc = 'Go to next buffer' })
+vim.keymap.set({ 'n' }, '<C-p>', '<CMD>bprevious<CR>', { desc = 'Go to previous buffer' })
+vim.keymap.set({ 't' }, '<C-n>', '<C-\\><C-n><CMD>bnext<CR>', { desc = 'Go to next buffer' })
+vim.keymap.set({ 't' }, '<C-p>', '<C-\\><C-n><CMD>bprevious<CR>', { desc = 'Go to previous buffer' })
 
 --  See `:help wincmd` for a list of all window commands
 vim.keymap.set({ 'n' }, '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
