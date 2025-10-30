@@ -12,34 +12,6 @@ return {
       'jmbuhr/otter.nvim',
     },
   },
-  -- { -- highlight markdown headings and code blocks etc.
-  --   'lukas-reineke/headlines.nvim',
-  --   enabled = true,
-  --   dependencies = 'nvim-treesitter/nvim-treesitter',
-  --   config = function()
-  --     require('headlines').setup {
-  --       quarto = {
-  --         query = vim.treesitter.query.parse(
-  --           'markdown',
-  --           [[
-  --               (fenced_code_block) @codeblock
-  --               ]]
-  --         ),
-  --         codeblock_highlight = 'CodeBlock',
-  --         treesitter_language = 'markdown',
-  --       },
-  --       markdown = {
-  --         query = vim.treesitter.query.parse(
-  --           'markdown',
-  --           [[
-  --               (fenced_code_block) @codeblock
-  --               ]]
-  --         ),
-  --         codeblock_highlight = 'CodeBlock',
-  --       },
-  --     }
-  --   end,
-  -- },
   {
     'MeanderingProgrammer/render-markdown.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
