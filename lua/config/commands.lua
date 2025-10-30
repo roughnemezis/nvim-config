@@ -34,3 +34,11 @@ vim.api.nvim_create_user_command('GetCodeblocks', function(opts)
   -- term.get_codeblocks(start, stop, num_blocks)
   term.send_codeblocks_before_cursor()
 end, { nargs = '*' })
+
+vim.api.nvim_create_user_command('DeleteFile', function()
+  local filename = vim.api.nvim_buf_get_name(0)
+  if filename ~= '' then
+    os.execute('gio trash "' .. filename .. '"')
+  end
+  require('custom.plugins.utils').destroy_buffer()
+end, {})

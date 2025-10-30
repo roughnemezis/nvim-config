@@ -68,3 +68,10 @@ vim.keymap.set('n', '<leader>yp', insertFullPath, { noremap = true, silent = tru
 --
 
 vim.keymap.set('n', '<leader>lg', '<CMD>LazyGit<CR>', { desc = 'Open Lazygit' })
+
+-- ##############      Additionnal utilities ##########################
+--
+
+vim.keymap.set({ 'n' }, '<leader>bd', function()
+  require('custom.plugins.utils').destroy_buffer()
+end, { desc = 'Destroy current buffer but do not close its window' })
