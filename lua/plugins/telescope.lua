@@ -146,6 +146,9 @@ return {
       vim.keymap.set('n', '<leader>smP', function()
         custom.live_multigrep { cwd = '/home/merzisenh/Projets/' }
       end, { desc = '[S]earch [M]ultiple words in [P]rojets' })
+      vim.keymap.set('n', '<leader>sma', function()
+        custom.live_multigrep { cwd = '/home/merzisenh/Work/' }
+      end, { desc = '[S]earch [M]ultiple words in [A]rchives' })
     end,
   },
 }
