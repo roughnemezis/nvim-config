@@ -29,6 +29,8 @@ return {
             path = '~/Documents/obsidian-vaults/hugo-main-vault/',
           },
         },
+        notes_subdir = 'notes/inbox',
+        new_notes_location = 'notes_subdir',
         ---@class obsidian.config.DailyNotesOpts
         ---
         ---@field folder? string
