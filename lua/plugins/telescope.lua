@@ -117,7 +117,13 @@ return {
       vim.keymap.set('n', '<leader>sfq', function()
         builtin.find_files { cwd = quarto_path }
       end, { desc = '[S]earch [F]iles in [Q]uarto' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>sfa', function()
+        builtin.find_files { cwd = '/home/merzisenh/Work/' }
+      end, { desc = '[S]earch [F]iles in [A]rchives' })
+      vim.keymap.set('n', '<leader>sgg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>sga', function()
+        builtin.live_grep { cwd = '/home/merzisenh/Work/' }
+      end, { desc = '[S]earch by [G]rep in [A]rchives' })
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
