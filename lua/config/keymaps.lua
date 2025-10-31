@@ -81,3 +81,73 @@ vim.keymap.set('n', '<leader>lg', '<CMD>LazyGit<CR>', { desc = 'Open Lazygit' })
 vim.keymap.set({ 'n' }, '<leader>bd', function()
   require('custom.plugins.utils').destroy_buffer()
 end, { desc = 'Destroy current buffer but do not close its window' })
+
+-- obsidian copy link to current file to clipboard
+--
+local function copy_obsidian_wiki_link()
+  local ok, obsidian = pcall(require, 'obsidian')
+  if not ok then
+    vim.notify("obsidian.nvim is not installed/available (require('obsidian') failed)", vim.log.levels.ERROR)
+    return
+  end
+
+  -- Ensure setup() has been called (it creates the global Obsidian table)
+  if type(_G.Obsidian) ~= 'table' or not _G.Obsidian.dir then
+    vim.notify("obsidian.nvim has not been set up in this session. Call require('obsidian').setup(...) in your config.", vim.log.levels.ERROR)
+    return
+  end
+
+  local bufname = vim.api.nvim_buf_get_name(0)
+  if bufname == '' then
+    vim.notify('No file in current buffer', vim.log.levels.WARN)
+    return
+  end
+
+  -- Normalize: absolute path and forward slashes
+  local function normalize_path(p)
+    p = vim.fn.fnamemodify(p, ':p') -- absolute
+    p = p:gsub('\\', '/')
+    p = p:gsub('/+$', '')
+    return p
+  end
+
+  local full = normalize_path(bufname)
+  local vault = normalize_path(tostring(_G.Obsidian.dir))
+
+  -- Make sure the file is inside the vault
+  if vault == '' or (full:sub(1, #vault) ~= vault and full:sub(1, #vault + 1) ~= vault .. '/') then
+    vim.notify('Current file is not inside the configured Obsidian vault: ' .. vault, vim.log.levels.ERROR)
+    return
+  end
+
+  -- Relative path inside vault
+  local rel = full:sub(#vault + 1)
+  if rel:sub(1, 1) == '/' then
+    rel = rel:sub(2)
+  end
+
+  -- Optionally strip notes_subdir if configured
+  local notes_subdir = (_G.Obsidian.opts and _G.Obsidian.opts.notes_subdir) or nil
+  if notes_subdir and notes_subdir ~= '' then
+    notes_subdir = notes_subdir:gsub('^/+', ''):gsub('/+$', '')
+    if notes_subdir ~= '' and rel:sub(1, #notes_subdir) == notes_subdir then
+      rel = rel:sub(#notes_subdir + 1)
+      if rel:sub(1, 1) == '/' then
+        rel = rel:sub(2)
+      end
+    end
+  end
+
+  -- Remove .md extension for wiki link
+  rel = rel:gsub('%.md$', '')
+
+  local link = '[[' .. rel .. ']]'
+  vim.fn.setreg('+', link)
+  vim.notify('Copied: ' .. link, vim.log.levels.INFO)
+end
+
+-- vim.api.nvim_create_user_command('ObsidianCopyLink', copy_obsidian_wiki_link, {
+--   desc = 'Copy current file as Obsidian wiki link to + register',
+-- })
+
+vim.keymap.set({ 'n' }, '<leader>yp', copy_obsidian_wiki_link)
