@@ -18,4 +18,8 @@ return {
     version = '*',
     opts = { width = 150 },
   },
+  {
+    'knubie/vim-kitty-navigator',
+    build = 'cp ./*.py ~/.config/kitty/',
+  },
 }
