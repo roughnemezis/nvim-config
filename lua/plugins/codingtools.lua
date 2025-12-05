@@ -1,4 +1,8 @@
 return {
+  {
+    'fladson/vim-kitty',
+    ft = 'kitty',
+  },
   { -- Autocompletion
     'saghen/blink.cmp',
     event = 'VimEnter',
