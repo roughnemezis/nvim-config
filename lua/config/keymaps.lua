@@ -42,26 +42,26 @@ vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 vim.keymap.set('n', '+', '<CMD>Oil --float<CR>', { desc = 'Open parent directory - in floating window' })
 
 -- ##############      Simple REPL             ##########################
-vim.api.nvim_create_user_command('Repl', function(opts)
-  require('custom.plugins.term').toggle_repl()
-end, { range = false })
-
-vim.keymap.set('n', '<leader>vx', '<CMD>vsplit +Repl<CR>', { desc = 'Open REPL in vertical split' })
-vim.keymap.set('n', '<leader>xx', '<CMD>split +Repl<CR>', { desc = 'Open REPL in horizontal split' })
-vim.keymap.set('n', '<leader>rx', '<CMD>Repl<CR>', { desc = 'Open REPL in current window' })
-
-vim.keymap.set('v', 's', function()
-  require('custom.plugins.term').send_visual()
-end, { desc = 'Send visual selection to REPL' })
-
-vim.keymap.set({ 'n', 'i' }, '<A-s>', function()
-  require('custom.plugins.term').send_line()
-end, { desc = 'Send current line to REPL' })
-
-vim.keymap.set({ 'n' }, 's', function()
-  vim.go.operatorfunc = "v:lua.require'custom.plugins.term'.send_motion"
-  return 'g@'
-end, { expr = true, desc = 'Send lines to REPL using a motion' })
+-- vim.api.nvim_create_user_command('Repl', function(opts)
+--   require('custom.plugins.term').toggle_repl()
+-- end, { range = false })
+--
+-- vim.keymap.set('n', '<leader>vx', '<CMD>vsplit +Repl<CR>', { desc = 'Open REPL in vertical split' })
+-- vim.keymap.set('n', '<leader>xx', '<CMD>split +Repl<CR>', { desc = 'Open REPL in horizontal split' })
+-- vim.keymap.set('n', '<leader>rx', '<CMD>Repl<CR>', { desc = 'Open REPL in current window' })
+--
+-- vim.keymap.set('v', 's', function()
+--   require('custom.plugins.term').send_visual()
+-- end, { desc = 'Send visual selection to REPL' })
+--
+-- vim.keymap.set({ 'n', 'i' }, '<A-s>', function()
+--   require('custom.plugins.term').send_line()
+-- end, { desc = 'Send current line to REPL' })
+--
+-- vim.keymap.set({ 'n' }, 's', function()
+--   vim.go.operatorfunc = "v:lua.require'custom.plugins.term'.send_motion"
+--   return 'g@'
+-- end, { expr = true, desc = 'Send lines to REPL using a motion' })
 
 local function insertFullPath()
   local filepath = vim.fn.expand '%'
@@ -69,6 +69,26 @@ local function insertFullPath()
 end
 
 vim.keymap.set('n', '<leader>yp', insertFullPath, { noremap = true, silent = true })
+
+-- ##############      Kitty REPL             ##########################
+--
+
+vim.keymap.set('n', '<leader>xx', function()
+  require('custom.plugins.kitty_repl').new_repl()
+end, { desc = 'Open Kitty  REPL' })
+
+vim.keymap.set('v', '<A-s>', function()
+  require('custom.plugins.kitty_repl').send_visual()
+end, { desc = 'Send visual selection to REPL' })
+
+vim.keymap.set({ 'n', 'i' }, '<A-s>', function()
+  require('custom.plugins.kitty_repl').send_line()
+end, { desc = 'Send current line to REPL' })
+
+vim.keymap.set({ 'n' }, 's', function()
+  vim.go.operatorfunc = "v:lua.require'custom.plugins.kitty_repl'.send_motion"
+  return 'g@'
+end, { expr = true, desc = 'Send lines to REPL using a motion' })
 
 -- ##############      LazyGit             ##########################
 --
