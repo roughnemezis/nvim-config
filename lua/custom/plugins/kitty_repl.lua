@@ -2,21 +2,10 @@ local M = {}
 
 M.current_repl = nil
 
-M.test_repl = function()
-  if M.current_repl == nil then
-    print 'No REPL active.'
-    return false
-  end
-  local window_id = 1234
-  local cmd = string.format("kitty @ ls | jq '.. | objects | select(.id? == %d)'", window_id)
-  local result = vim.fn.system(cmd)
-  return result ~= ''
-end
-
 M.new_repl = function()
-  if M.current_repl == nil then
-    M.current_repl = tonumber(vim.fn.system 'kitty @ launch --type window --cwd current --title repl')
-  end
+  -- if M.current_repl == nil then
+  M.current_repl = tonumber(vim.fn.system 'kitty @ launch --type window --cwd current --title repl')
+  -- end
 end
 
 M.send = function(text)
@@ -25,12 +14,6 @@ M.send = function(text)
   vim.fn.system(string.format('kitty @ send-text --match id:%s \"%s\"', M.current_repl, text .. '\\n\n'))
   -- stylua: ignore end
 end
-
--- stylua: ignore start
--- local current_repl = 17
--- local text = "\necho bobo\n echo bobo\n echo_bobo\n"
--- print(string.format('kitty @ send-text --match id:%s \"%s\"', current_repl, text .. '\\n'))
--- stylua: ignore end
 
 M.send_line = function()
   local pos = vim.fn.getpos '.'
