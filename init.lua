@@ -1,3 +1,4 @@
+require 'config.macos'
 require 'config.global'
 require 'config.keymaps'
 require 'config.lazy'
