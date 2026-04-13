@@ -25,6 +25,8 @@ vim.api.nvim_create_user_command('LazyGit', function()
   end
 end, {})
 
+vim.api.nvim_create_user_command('RunInMarimo', '!kitty @ launch --type window --cwd current --match title:marimo uv run marimo edit --headless %', {})
+
 vim.api.nvim_create_user_command('GetCodeblocks', function(opts)
   -- package.loaded['custom.plugins.term'] = nil
   local term = require 'custom.plugins.term'
