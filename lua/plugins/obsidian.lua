@@ -28,6 +28,10 @@ return {
             name = 'main',
             path = '~/Documents/obsidian-vaults/hugo-main-vault/',
           },
+          {
+            name = 'arome-t2m',
+            path = '~/Work/Projets/arome-t2m/',
+          },
         },
         notes_subdir = 'notes/inbox',
         new_notes_location = 'notes_subdir',
