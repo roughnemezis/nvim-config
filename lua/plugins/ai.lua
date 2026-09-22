@@ -1,48 +1,57 @@
 return {
   {
-    'CopilotC-Nvim/CopilotChat.nvim',
-    dependencies = {
-      { 'github/copilot.vim' }, -- or zbirenbaum/copilot.lua
-      { 'nvim-lua/plenary.nvim', branch = 'master' }, -- for curl, log and async functions
-    },
-    build = 'make tiktoken', -- Only on MacOS or Linux
+    'olimorris/codecompanion.nvim',
+    version = '^19.0.0',
     opts = {
-      window = {
-        layout = 'replace', -- 'vertical', 'horizontal', 'float', 'replace'
+      interactions = {
+        chat = {
+          adapter = 'openrouter',
+        },
       },
-      mappings = {
-        -- Use tab for completion
-        complete = {
-          detail = 'Use @<Tab> or /<Tab> for options.',
-          insert = '<C-Tab>',
+      adapters = {
+        http = {
+          openrouter = function()
+            return require('codecompanion.adapters').extend('openrouter', {
+              env = {
+                api_key = 'file:~/.openrouter_api_key',
+              },
+            })
+          end,
+          albert = function()
+            return require('codecompanion.adapters').extend('openai_compatible', {
+              env = {
+                url = 'https://albert.api.etalab.gouv.fr',
+                api_key = 'file:~/.albert_api_key',
+                chat_url = '/v1/chat/completions',
+              },
+              schema = {
+                model = {
+                  default = 'openai/gpt-oss-120b',
+                  -- choices = {
+                  --   'openai/gpt-oss-120b',
+                  --   'openai/deepseek-v4-flash-0731',
+                  -- },
+                },
+              },
+            })
+          end,
         },
-        -- Close the chat
-        close = {
-          normal = 'q',
-          insert = '<C-c>',
-        },
-        -- Reset the chat buffer
-        reset = {
-          normal = '<C-r>',
-          insert = '<C-r>',
-        },
-        -- Submit the prompt to Copilot
-        submit_prompt = {
-          normal = '<CR>',
-          insert = '<C-CR>',
-        },
-        -- Accept the diff
-        accept_diff = {
-          normal = '<C-y>',
-          insert = '<C-y>',
-        },
-        -- Show help
-        show_help = {
-          normal = 'g?',
+      },
+      mcp = {
+        servers = {
+          context7 = {
+            cmd = {
+              'npx',
+              '-y',
+              '@upstash/context7-mcp',
+            },
+          },
         },
       },
     },
-    -- See Configuration section for options
+    dependencies = {
+      { 'nvim-lua/plenary.nvim', branch = 'master' },
+      'nvim-treesitter/nvim-treesitter',
+    },
   },
-  -- See Commands section for default commands if you want to lazy load on them
 }
