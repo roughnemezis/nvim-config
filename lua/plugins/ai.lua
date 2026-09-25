@@ -3,6 +3,11 @@ return {
     'olimorris/codecompanion.nvim',
     version = '^19.0.0',
     opts = {
+      display = {
+        chat = {
+          show_settings = false,
+        },
+      },
       interactions = {
         chat = {
           adapter = 'openrouter',
@@ -37,6 +42,14 @@ return {
           end,
         },
       },
+      extensions = {
+        history = {
+          enabled = true,
+          opts = {
+            dir_to_save = vim.fn.stdpath 'data' .. '/codecompanion_chats.json',
+          },
+        },
+      },
       mcp = {
         servers = {
           context7 = {
@@ -52,6 +65,7 @@ return {
     dependencies = {
       { 'nvim-lua/plenary.nvim', branch = 'master' },
       'nvim-treesitter/nvim-treesitter',
+      'ravitemer/codecompanion-history.nvim',
     },
   },
 }
