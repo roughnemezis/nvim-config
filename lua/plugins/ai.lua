@@ -1,7 +1,6 @@
 return {
   {
     'olimorris/codecompanion.nvim',
-    version = '^19.0.0',
     opts = {
       display = {
         chat = {
@@ -12,6 +11,9 @@ return {
         chat = {
           adapter = 'openrouter',
         },
+        inline = {
+          adapter = 'openrouter',
+        },
       },
       adapters = {
         http = {
@@ -19,6 +21,11 @@ return {
             return require('codecompanion.adapters').extend('openrouter', {
               env = {
                 api_key = 'file:~/.openrouter_api_key',
+              },
+              schema = {
+                model = {
+                  default = 'deepseek/deepseek-v4.1-flash',
+                },
               },
             })
           end,
